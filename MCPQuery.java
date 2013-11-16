@@ -8,15 +8,15 @@ public class MCPQuery {
 	
 	private void run() {
 		StartForm form = new StartForm();
-		Triplet triplet = form.getInfo();
+		Quad quad = form.getInfo();
 		Display display = new Display();
 		try {
 			String tOne;
-			if (!(tOne = (String)triplet.getOne() ).equals("")) {
+			if (!(tOne = (String)quad.getOne() ).equals("")) {
 				display.show();
 				tOne = tOne.substring(0,2);
 			while (true) {
-				URL url = new URL((String)triplet.getFour() + "index.php?r=server/view&id=" + (String)triplet.getTwo());
+				URL url = new URL((String)quad.getFour() + "index.php?r=server/view&id=" + (String)triplet.getTwo());
 				URLConnection con = url.openConnection();
 				String redirect = con.getHeaderField("Location");
 				if (redirect != null){
@@ -31,7 +31,7 @@ public class MCPQuery {
 				}
 				br.close();
 				String xmlString = xmlBuilder.toString();
-				Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".?" + "/" + (String)triplet.getThree() +" players</div>");
+				Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".?" + "/" + (String)quad.getThree() +" players</div>");
 				Matcher match = pattern.matcher(xmlString);
 				if(match.find()) {
 					String players = match.group();
