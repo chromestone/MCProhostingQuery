@@ -16,7 +16,7 @@ public class MCPQuery {
 				display.show();
 				tOne = tOne.substring(0,2);
 			while (true) {
-				URL url = new URL("http://multicraft.mcprohosting.com/index.php?r=server/view&id=" + (String)triplet.getTwo());
+				URL url = new URL((String)triplet.getFour() + "index.php?r=server/view&id=" + (String)triplet.getTwo());
 				URLConnection con = url.openConnection();
 				String redirect = con.getHeaderField("Location");
 				if (redirect != null){
@@ -48,7 +48,7 @@ public class MCPQuery {
 						}
 					}
 					else {
-						display.append("Error has occured please exit.\nDid the website format change? or Did chromestone mess up?");
+						display.append("Error has occured please exit.\nDid the website format change? or Did chromestone mess up? Did you remember the trailing slash at the end of the multicraft root link?");
 						break;
 					}
 				}
@@ -61,7 +61,7 @@ public class MCPQuery {
 			}
 		}
 		catch(Exception a) {
-			display.append("Error has occured please exit. Contact chromestone on the forums.");
+			display.append("Error has occured please exit. Contact chromestone on the MCProhosting forums.");
 		}
 	}
 	
