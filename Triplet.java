@@ -1,10 +1,10 @@
-public class Triplet {
+public class Quad {
 	private Object _one;
 	private Object _two;
 	private Object _three;
 	private Object _four;
 	
-	public Triplet(Object one, Object two, Object three, Object four) {
+	public Quad(Object one, Object two, Object three, Object four) {
 		_one = one;
 		_two = two;
 		_three = three;
