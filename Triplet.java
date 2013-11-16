@@ -2,11 +2,13 @@ public class Triplet {
 	private Object _one;
 	private Object _two;
 	private Object _three;
+	private Object _four;
 	
-	public Triplet(Object one, Object two, Object three) {
+	public Triplet(Object one, Object two, Object three, Object four) {
 		_one = one;
 		_two = two;
 		_three = three;
+		_four = four;
 	}
 	
 	public Object getOne() {
@@ -19,5 +21,8 @@ public class Triplet {
 	
 	public Object getThree() {
 		return _three;
+	}
+	public Object getFour() {
+		return _four;
 	}
 }
