@@ -7,5 +7,6 @@ The link url should be something like https://multicraft.mcprohosting.com/ and i
 
 Contributors
 ============
-chromestone - Main Project\n
+chromestone - Main Project
+
 ThePandemicMoon - Made compatible with other hosts
