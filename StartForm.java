@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class StartForm {
 	
-	public Triplet getInfo() {
+	public Quad getInfo() {
 		String[] items = new String[51];
 		for (int minutes = 10; minutes < 61; minutes++) {
 			items[minutes-10] = Integer.toString(minutes) + " minutes";
@@ -24,12 +24,12 @@ public class StartForm {
 												   JOptionPane.OK_CANCEL_OPTION,
 												   JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
-			Triplet triplet = new Triplet(items[combo.getSelectedIndex()], field1.getText(), field2.getText(), field3.getText());
-			return triplet;
+			Quad quad = new Quad(items[combo.getSelectedIndex()], field1.getText(), field2.getText(), field3.getText());
+			return quad;
 		}
 		else {
-			Triplet triplet = new Triplet("", "", "", "");
-			return triplet;
+			Quad quad = new Quad("", "", "", "");
+			return Quad;
 		}
 	}
 }
