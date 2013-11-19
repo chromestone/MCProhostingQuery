@@ -7,3 +7,4 @@ The link url should be something like https://multicraft.mcprohosting.com/ and i
 Contributor
 ============
 chromestone - Main Project
+ThePandemicMoon - Editor/Refiner
