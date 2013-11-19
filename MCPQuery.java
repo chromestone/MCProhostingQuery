@@ -61,7 +61,7 @@ public class MCPQuery {
 			}
 		}
 		catch(Exception a) {
-			display.append("Error has occured please exit. Contact chromestone on the forums.");
+			display.append("Error has occured please exit. Contact chromestone on the MCProhosting forums.");
 		}
 	}
 	
