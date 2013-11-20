@@ -1,73 +1,37 @@
-import java.util.*;
-import java.util.regex.*;
-import java.net.*;
-import java.io.*;
-import java.text.*;
-
 public class MCPQuery {
-	
+
+	private StartForm form;
+	private Triplet triplet;
+	private Display display;
+
+	private MulticraftParser parser;
+
+	public MCPQuery() {
+		form = new StartForm();
+		triplet = form.getInfo();
+		parser = new MulticraftParser((String)triplet.getTwo(), (String)triplet.getThree());
+		display = new Display(parser);
+	}
 	private void run() {
-		StartForm form = new StartForm();
-		Triplet triplet = form.getInfo();
-		Display display = new Display();
 		try {
-			String tOne;
-			if (!(tOne = (String)triplet.getOne() ).equals("")) {
+			String tripletOne;
+			if (!(tripletOne = (String)triplet.getOne() ).equals("")) {
 				display.show();
-				tOne = tOne.substring(0,2);
-			while (true) {
-				URL url = new URL("http://multicraft.mcprohosting.com/index.php?r=server/view&id=" + (String)triplet.getTwo());
-				URLConnection con = url.openConnection();
-				String redirect = con.getHeaderField("Location");
-				if (redirect != null){
-					con = new URL(redirect).openConnection();
+				int sleepTime = Integer.parseInt(tripletOne.substring(0,2));
+				while (true) {
+					display.append(parser.parseMulticraft());
+					Thread.sleep(sleepTime * 60 * 1000);
 				}
-				InputStream is =con.getInputStream();
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));
-				String line = null;
-				StringBuilder xmlBuilder = new StringBuilder();
-				while ((line = br.readLine()) != null) {
-					xmlBuilder.append(line);
-				}
-				br.close();
-				String xmlString = xmlBuilder.toString();
-				Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".?" + "/" + (String)triplet.getThree() +" players</div>");
-				Matcher match = pattern.matcher(xmlString);
-				if(match.find()) {
-					String players = match.group();
-					Pattern pattern2 = Pattern.compile(" " + ".?" + "/");
-					Matcher match2 = pattern2.matcher(players);
-					if (match2.find()) {
-						players = match2.group();
-						players = players.substring(1, players.length()-1);
-						if (Integer.parseInt(players) > 0) {
-							java.awt.Toolkit.getDefaultToolkit().beep();
-							DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-							Date date = new Date();
-							display.append("<" + dateFormat.format(date) + "> " + players + " Player(s) were online");
-						}
-					}
-					else {
-						display.append("Error has occured please exit.\nDid the website format change? or Did chromestone mess up?");
-						break;
-					}
-				}
-				else {
-					display.append("Error has occured please exit.\nDid you enter invalid credentials? or Did the website format change?");
-					break;
-				}
-				Thread.sleep(Integer.parseInt(tOne) * 60 * 1000);
-			}
 			}
 		}
 		catch(Exception a) {
-		    display.append("Error has occured please exit. Contact chromestone on the MCProhosting forums.\n" 
-		            + a.getMessage());
+			display.append("Error has occured please exit. Contact chromestone on the MCProhosting forums.\n" 
+					+ a.getMessage());
 		}
 	}
-	
-   public static void main(String args[]) {
-	   MCPQuery query = new MCPQuery();
-	   query.run();
-   }
+
+	public static void main(String args[]) {
+		MCPQuery query = new MCPQuery();
+		query.run();
+	}
 }
