@@ -30,7 +30,7 @@ public class MulticraftParser {
 			br.close();
 
 			String xmlString = xmlBuilder.toString();
-			Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".?" + "/" + _playerNumber +" players</div>");
+			Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".+" + "/" + _playerNumber +" players</div>");
 			Matcher match = pattern.matcher(xmlString);
 			if(match.find()) {
 				String players = match.group();
