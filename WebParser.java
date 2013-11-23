@@ -3,10 +3,12 @@ import java.text.*;
 import java.util.regex.*;
 import java.util.*;
 import java.net.*;
-public class MulticraftParser {
+public class WebParser {
+	
 	private String _serverID;
 	private String _playerNumber;
-	public MulticraftParser(String serverID, String playerNumber) {
+	
+	public WebParser(String serverID, String playerNumber) {
 		_serverID = serverID;
 		_playerNumber = playerNumber;
 	}
@@ -34,7 +36,7 @@ public class MulticraftParser {
 			Matcher match = pattern.matcher(xmlString);
 			if(match.find()) {
 				String players = match.group();
-				Pattern pattern2 = Pattern.compile(" " + ".?" + "/");
+				Pattern pattern2 = Pattern.compile(" " + ".+" + "/");
 				Matcher match2 = pattern2.matcher(players);
 				if (match2.find()) {
 					players = match2.group();
@@ -44,6 +46,7 @@ public class MulticraftParser {
 						DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 						Date date = new Date();
 						message ="<" + dateFormat.format(date) + "> " + players + " Player(s) were online";
+
 					}
 				}
 				else {
@@ -56,6 +59,38 @@ public class MulticraftParser {
 			return message;
 		}
 		catch(Exception a) {
+			throw a;
+		}
+	}
+
+	public String[] parseVersion() throws Exception{
+		try {
+			URL url = new URL("http://chromestone.wix.com/mcpqueryversion?_escaped_fragment_=");
+			URLConnection con = url.openConnection();
+			InputStream is =con.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			StringBuilder xmlBuilder = new StringBuilder();
+			while ((line = br.readLine()) != null) {
+				xmlBuilder.append(line);
+			}
+			String xmlString = xmlBuilder.toString();
+			Pattern pattern = Pattern.compile("<p class=\"font_8\">" + ".+?" + "</p>");
+			Matcher match = pattern.matcher(xmlString);
+			String[] webPkg = new String[2];
+			if(match.find()) {
+				String info = match.group();
+				info = info.substring(18,info.length()-4);
+				System.out.println(info);
+				webPkg = info.split(" ");//note this is not a space it is an interpunct
+			}
+			else {
+				webPkg[0] = "";
+				webPkg[1] = "";
+			}
+			return webPkg;
+		}
+		catch (Exception a) {
 			throw a;
 		}
 	}
