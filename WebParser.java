@@ -35,13 +35,11 @@ public class WebParser {
 			Matcher match = pattern.matcher(xmlString);
 			if(match.find()) {
 				String players = match.group();
-				System.out.println(players);
 				Pattern pattern2 = Pattern.compile(", " + ".+?" + "/");
 				Matcher match2 = pattern2.matcher(players);
 				if (match2.find()) {
 					players = match2.group();
 					players = players.substring(2, players.length()-1);
-					System.out.println(players);
 					if (Integer.parseInt(players) > 0) {
 						java.awt.Toolkit.getDefaultToolkit().beep();
 						DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
