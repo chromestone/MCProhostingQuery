@@ -5,7 +5,7 @@ public class MCPQuery {
 	private WebParser parser;
 	private Display display;
 
-	private final String version = "1.2.4";
+	private final String version = "1.3.5";
 
 	public MCPQuery() {
 		form = new StartForm();
