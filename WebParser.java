@@ -30,23 +30,23 @@ public class WebParser {
 				xmlBuilder.append(line);
 			}
 			br.close();
-
 			String xmlString = xmlBuilder.toString();
-			Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".+" + "/" + _playerNumber +" players</div>");
+			Pattern pattern = Pattern.compile("<div id=\"statusdetail-ajax\">Online, " + ".+?" + "/" + _playerNumber +" players</div>");
 			Matcher match = pattern.matcher(xmlString);
 			if(match.find()) {
 				String players = match.group();
-				Pattern pattern2 = Pattern.compile(" " + ".+" + "/");
+				System.out.println(players);
+				Pattern pattern2 = Pattern.compile(", " + ".+?" + "/");
 				Matcher match2 = pattern2.matcher(players);
 				if (match2.find()) {
 					players = match2.group();
-					players = players.substring(1, players.length()-1);
+					players = players.substring(2, players.length()-1);
+					System.out.println(players);
 					if (Integer.parseInt(players) > 0) {
 						java.awt.Toolkit.getDefaultToolkit().beep();
 						DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 						Date date = new Date();
 						message ="<" + dateFormat.format(date) + "> " + players + " Player(s) were online";
-
 					}
 				}
 				else {
@@ -77,12 +77,11 @@ public class WebParser {
 			String xmlString = xmlBuilder.toString();
 			Pattern pattern = Pattern.compile("<p class=\"font_8\">" + ".+?" + "</p>");
 			Matcher match = pattern.matcher(xmlString);
-			String[] webPkg = new String[2];
+			String[] webPkg = new String[3];
 			if(match.find()) {
 				String info = match.group();
 				info = info.substring(18,info.length()-4);
-				System.out.println(info);
-				webPkg = info.split(" ");//note this is not a space it is an interpunct
+				webPkg = info.split("¬†");
 			}
 			else {
 				webPkg[0] = "";
