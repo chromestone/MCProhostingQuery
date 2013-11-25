@@ -6,10 +6,10 @@ public class Display {
 	private JFrame frame;
 	private JTextArea textArea;
 	
-	private final MulticraftParser _parser;
+	private final WebParser _parser;
 	private final Display _display;
 	
-	public Display(MulticraftParser parser) {
+	public Display(WebParser parser) {
 		frame = new JFrame("MCProhosting Query");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setSize(790, 450);
@@ -64,4 +64,3 @@ public class Display {
 		frame.dispose();
 	}
 }
-
