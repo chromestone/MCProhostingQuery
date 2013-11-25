@@ -2,16 +2,16 @@ public class MCPQuery {
 
 	private StartForm form;
 	private Triplet triplet;
-	private Display display;
 	private WebParser parser;
+	private Display display;
 
-	private final String version = "1.2.3";
+	private final String version = "1.2.4";
 
 	public MCPQuery() {
 		form = new StartForm();
 		triplet = form.getInfo();
-		display = new Display(parser);
 		parser = new WebParser((String)triplet.getTwo(), (String)triplet.getThree());
+		display = new Display(parser);
 	}
 	private void run() {
 		try {
@@ -19,7 +19,7 @@ public class MCPQuery {
 			if (!(tripletOne = (String)triplet.getOne() ).equals("")) {
 				int sleepTime = Integer.parseInt(tripletOne.substring(0,2));
 				display.show();
-				getVersion();
+				displayVersion();
 				while (true) {
 					display.append(parser.parseMulticraft());
 					Thread.sleep(sleepTime * 60 * 1000);
@@ -32,17 +32,14 @@ public class MCPQuery {
 		}
 	}
 
-	private void getVersion() throws Exception{
+	private void displayVersion() throws Exception{
 		try {
+			display.append("Version " + version);
 			String[] webPkg = parser.parseVersion();
 			if (!webPkg[0].equals("")) {
-				display.append("Version " + webPkg[0]);
-				if (webPkg[0].equals(version)) {
-					System.out.println("New version available at " + webPkg[1]);
+				if (!webPkg[0].equals(version)) {
+					display.append("Version " + webPkg[0] + " available at\n" + webPkg[1]);
 				}
-			}
-			else {
-				display.append("Unable to get version number.");
 			}
 		}
 		catch (Exception a) {
