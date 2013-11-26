@@ -48,11 +48,11 @@ public class WebParser {
 					}
 				}
 				else {
-					message = "Error has occured please exit.\nDid the website format change? or Did chromestone mess up?";
+					message = "Did the website format change? or Did chromestone mess up?";
 				}
 			}
 			else {
-				message = "Error has occured please exit.\nDid you enter invalid credentials? or Did the website format change?";
+				message = "Did you enter invalid credentials? or Did the website format change?";
 			}
 			return message;
 		}
@@ -61,7 +61,7 @@ public class WebParser {
 		}
 	}
 
-	public String[] parseVersion() throws Exception{
+	public String[] parseVersion() throws Exception {
 		try {
 			URL url = new URL("http://chromestone.wix.com/mcpqueryversion?_escaped_fragment_=");
 			URLConnection con = url.openConnection();
