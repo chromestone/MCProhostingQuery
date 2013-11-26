@@ -5,8 +5,6 @@ public class MCPQuery {
 	private WebParser parser;
 	private Display display;
 
-	private final String version = "1.3.5";
-
 	public MCPQuery() {
 		form = new StartForm();
 		triplet = form.getInfo();
@@ -20,10 +18,18 @@ public class MCPQuery {
 				int sleepTime = Integer.parseInt(tripletOne.substring(0,2));
 				display.show();
 				displayVersion();
+				String message = "";
 				while (true) {
-					display.append(parser.parseMulticraft());
+					message = parser.parseMulticraft();
+					if (message.startsWith("D")) {
+						throw new RuntimeException(message);
+					}
+					display.append(message);
 					Thread.sleep(sleepTime * 60 * 1000);
 				}
+			}
+			else {
+				display.dispose();
 			}
 		}
 		catch(Exception a) {
@@ -34,10 +40,9 @@ public class MCPQuery {
 
 	private void displayVersion() throws Exception{
 		try {
-			display.append("Version " + version);
 			String[] webPkg = parser.parseVersion();
 			if (!webPkg[0].equals("")) {
-				if (!webPkg[0].equals(version)) {
+				if (!webPkg[0].equals("1.3.6")) {
 					display.append("Version " + webPkg[0] + " available at\n" + webPkg[1]);
 				}
 			}
